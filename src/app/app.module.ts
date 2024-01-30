@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
 import { configReducer } from './store/config/reduce';
 import { AppState } from './store/state';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const reducers: ActionReducerMap<AppState> = {
   config: configReducer
@@ -31,9 +32,12 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     AppRoutingModule,
-    StoreModule.forRoot(reducers, { metaReducers })
+    StoreModule.forRoot(reducers, { metaReducers }),
+    BrowserAnimationsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
