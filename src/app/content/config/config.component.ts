@@ -20,7 +20,7 @@ export class ConfigComponent implements OnInit, OnDestroy {
   private subs: Array<Subscription> = [];
 
   /**
-   * Constructor de laConfigComponent clase 
+   * Constructor de la clase ConfigComponent
    * @constructor
    * @param store
    */

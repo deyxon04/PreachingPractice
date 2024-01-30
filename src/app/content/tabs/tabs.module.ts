@@ -14,7 +14,7 @@ import { GameComponent } from '../game/game.component';
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule,
+    TabsPageRoutingModule
   ],
   declarations: [TabsPage, ConfigComponent, GameComponent]
 })
