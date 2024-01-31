@@ -1,4 +1,4 @@
-<div>
+<div #page class="overflow-y">
   <ion-card>
     <ion-card-header>
       <ion-card-title>Configuración</ion-card-title>
@@ -6,14 +6,90 @@
     </ion-card-header>
 
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      <p>Aquí puedes agregar jugadores participantes, marcos de circustancias para la predi, temas de conversacion y los
+        diferentes territorios donde quieres practicar.</p>
+      <p>Que te diviertas!</p>
     </ion-card-content>
   </ion-card>
 
 
   <ion-card>
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      <div class="d-flex between">
+        <h2>Jugadores</h2>
+        <ion-button (click)="getModal('Players')" expand="block" fill="clear" shape="round">
+          Agregar
+        </ion-button>
+      </div>
+      <div class="d-flex overflow-x ">
+
+        <card-component *ngFor="let player of players; let ind = index" [title]="player"
+          [imageSrc]="'https://robohash.org/' + ind"></card-component>
+
+      </div>
     </ion-card-content>
   </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <div class="d-flex between">
+        <h2>Sitios</h2>
+        <ion-button (click)="getModal('Sites')" expand="block" fill="clear" shape="round">
+          Agregar
+        </ion-button>
+      </div>
+
+      <list-component [items]="sites"></list-component>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <div class="d-flex between">
+        <h2>Situaciones</h2>
+        <ion-button (click)="getModal('Situations')" expand="block" fill="clear" shape="round">
+          Agregar
+        </ion-button>
+      </div>
+
+      <list-component [items]="situations"></list-component>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <div class="d-flex between">
+        <h2>Temas</h2>
+        <ion-button (click)="getModal('Temes')" expand="block" fill="clear" shape="round">
+          Agregar
+        </ion-button>
+      </div>
+
+      <list-component [items]="temes"></list-component>
+
+    </ion-card-content>
+  </ion-card>
+
 </div>
+
+
+<ion-modal #modal [isOpen]="modalIsOpen" [presentingElement]="page" (ionModalDidDismiss)="modalDidDismiss()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{modalTitle}}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="modal.dismiss()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-input [(ngModel)]="modalValue" type="text" placeholder="ingresa {{modalTitle.toLowerCase()}}"></ion-input>
+      <ion-button (click)="addItem(modalTitle)" expand="block" fill="solid" shape="round">
+        Agregar
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

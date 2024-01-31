@@ -8,6 +8,8 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 import { TabsPage } from './tabs.page';
 import { ConfigComponent } from '../config/config.component';
 import { GameComponent } from '../game/game.component';
+import { CardComponent } from 'src/app/components/card/card.component';
+import { ListComponent } from 'src/app/components/list/list.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,16 @@ import { GameComponent } from '../game/game.component';
     FormsModule,
     TabsPageRoutingModule
   ],
-  declarations: [TabsPage, ConfigComponent, GameComponent]
+  declarations: [
+    TabsPage, 
+    ConfigComponent, 
+    GameComponent, 
+    CardComponent,
+    ListComponent,
+  ],
+  exports: [
+    CardComponent,
+    ListComponent,
+  ]
 })
 export class TabsPageModule {}
