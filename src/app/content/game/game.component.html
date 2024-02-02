@@ -18,9 +18,11 @@
           <h1 *ngIf="diceValue; else noShootDice" class="dice-value">{{diceValue}}</h1>
           <ng-template #noShootDice>
             <p class="dice-value-description">
-              📣📣📣 Para iniciar la partida, se debe lanzar el dado. El equipo a participar saldrá abajo en una tarjeta.
+              📣📣📣 Para iniciar la partida, se debe lanzar el dado. El equipo a participar saldrá abajo en una
+              tarjeta.
               Depende del
-              resultado del lanzamiento el juego comenzará. <ion-text class="ion-text" color="danger">🥳🎇¡Que la suerte esté de tu lado al
+              resultado del lanzamiento el juego comenzará. <ion-text class="ion-text" color="danger">🥳🎇¡Que la suerte
+                esté de tu lado al
                 lanzar el dado y que comience la diversión!🎊🎉</ion-text>
             </p>
           </ng-template>
@@ -28,9 +30,16 @@
       </div>
 
       <div class="button-dice-container">
-        <ion-button expand="block" (click)="rollDice()">🎲Lanzar Dado🎲</ion-button>
+        <ion-button *ngIf="!diceValue" expand="block" (click)="rollDice()">🎲Lanzar Dado🎲</ion-button>
+        <ion-button *ngIf="diceValue" expand="block" (click)="reloadGame()">Reiniciar juego</ion-button>
       </div>
 
     </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Equipo seleccionado</ion-card-subtitle>
+    </ion-card-header>
   </ion-card>
 </div>

@@ -63,4 +63,12 @@ export class GameComponent implements OnInit {
     this.diceValue = Math.trunc(Math.random() * 6) + 1;
   }
 
+  /**
+   * Función para reiniciar el juego
+   * @returns {void}
+   */
+  reloadGame(): void {
+    this.diceValue = 0;
+  }
+
 }
