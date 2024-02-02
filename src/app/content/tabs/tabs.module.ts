@@ -10,6 +10,8 @@ import { ConfigComponent } from '../config/config.component';
 import { GameComponent } from '../game/game.component';
 import { CardComponent } from 'src/app/components/card/card.component';
 import { ListComponent } from 'src/app/components/list/list.component';
+import { ButtonComponent } from 'src/app/components/button/button.component';
+import { FireDatabaseService } from 'src/app/services/firebase.service';
 
 @NgModule({
   imports: [
@@ -24,10 +26,12 @@ import { ListComponent } from 'src/app/components/list/list.component';
     GameComponent, 
     CardComponent,
     ListComponent,
+    ButtonComponent,
   ],
   exports: [
     CardComponent,
     ListComponent,
+    ButtonComponent,
   ]
 })
 export class TabsPageModule {}
