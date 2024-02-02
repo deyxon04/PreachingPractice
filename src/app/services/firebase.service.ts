@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, query, doc, addDoc, setDoc, getDocs, where, getDoc, deleteDoc } from 'firebase/firestore'
+import { getFirestore, collection, query, doc, addDoc, setDoc, getDocs, where, getDoc, deleteDoc, onSnapshot } from 'firebase/firestore'
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,15 +14,25 @@ export class FireDatabaseService {
   public documents: any = []
 
   constructor() {
+    // this.subscription('sites')
 
-    setTimeout(()=>{
+  }
 
-      // this.addNewDocument('cartas', {name: 'stiven', street: 'calle 39C n 40 - 42', userId: this.user.uid})
-      // this.documents = this.getDocuments('cartas', (documents: any)=>{console.log(documents)})
-      // this.documents = this.getAllDocuments('cartas', (documents: any)=>{console.log(documents)})
-      // this.deleteDocument('cartas', 'uno')
-
-    },500)
+  /**
+   * Devuelve una subscripcion a los cambios de una coleccion en firestore
+   * @param collectionName Nombre de la coleccion (lista)
+   * @param callBack Funcion, se ejecuta cuando detecta cambios
+   * @returns void
+   */
+  subscription = async (collectionName: string, callBack?: Function) => {
+    // Suscribirse a cambios en la colección
+    const collectionRef = collection(this.database, collectionName.toLowerCase());
+    // Crear una consulta para la colección (opcional)
+    const q = query(collectionRef);
+    return onSnapshot(q, (snapshot) => {
+      // console.log(snapshot.docChanges())
+      if (callBack) callBack(collectionName)
+    });
   }
 
   async addNewDocument(collectionName: string, value: any): Promise<any> {
@@ -48,7 +58,7 @@ export class FireDatabaseService {
     try {
       const documents: any[] | PromiseLike<any[]> = []
       const querySnapshot = await getDocs(query(collection(this.database, collectionName)))
-      querySnapshot.forEach((doc)=>{
+      querySnapshot.forEach((doc) => {
         documents.push({
           id: doc.id,
           ...doc.data()
@@ -61,12 +71,12 @@ export class FireDatabaseService {
       return null
     }
   }
-  
+
   async getAllDocuments(collectionName: string, callback?: Function): Promise<any> {
     try {
       const documents: any[] | PromiseLike<any[]> = []
       const querySnapshot = await getDocs(collection(this.database, collectionName))
-      querySnapshot.forEach((doc)=>{
+      querySnapshot.forEach((doc) => {
         documents.push({
           id: doc.id,
           ...doc.data()
@@ -81,9 +91,9 @@ export class FireDatabaseService {
   }
 
 
-  async deleteDocument(collectionName: string, documentId: string): Promise<any> {
+  async deleteDocument(collectionName: string, id: string): Promise<any> {
     try {
-      const documentRef = doc(this.database, collectionName, documentId)
+      const documentRef = doc(this.database, collectionName, id)
       return await deleteDoc(documentRef)
     } catch (error) {
       console.error("Error deleting document: ", error);

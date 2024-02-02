@@ -1,6 +1,11 @@
-<ion-card>
-  <img alt="" src="{{imageSrc}}" />
-  <ion-card-header>
-    <ion-card-title> {{title}} </ion-card-title>
-  </ion-card-header>
-</ion-card>
+<div  class="d-flex overflow-x " >
+  <ion-card (mouseenter)="showButton = true" (mouseleave)="showButton = false" *ngFor="let player of players; let ind = index" >
+    <img alt="image" src="https://robohash.org/ + {{player}}" />
+    <div class="deleteButton" *ngIf="showButton" (click)="removeItem(listName, player)">
+      <ion-icon class="ico" name="trash"></ion-icon>
+    </div>
+    <ion-card-header>
+      <ion-card-title> {{player}} </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</div>

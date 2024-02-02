@@ -7,19 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListComponent  implements OnInit {
 
-  @Input() items: Array<string> = []
-  @Input() remove: any
+  @Input() items: Array<any> = []
+  @Input() listName: string = ''
+  @Input() removeItem: any
 
   constructor() { }
 
   ngOnInit() {}
-
-  /**
-   * Remueve el item del array
-   * @param index indice de item
-   */
-  removeItem(index: any): void {
-    this.items.splice(index,1)
-  }
 
 }

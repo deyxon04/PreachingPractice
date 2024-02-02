@@ -7,8 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardComponent  implements OnInit {
 
-  @Input() imageSrc: any = ''
-  @Input() title: any = ''
+  @Input() players: string[] = []
+  @Input() listName: string = ''
+  @Input() removeItem: any 
+
+  showButton: boolean = false
 
   constructor() { }
 
