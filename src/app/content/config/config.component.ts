@@ -45,8 +45,8 @@ export class ConfigComponent implements OnInit, OnDestroy {
   ]
   public temes: Array<string> = [
     'Amor',
-    'Compasion',
-    'Terniura'
+    'Compasión',
+    'Ternura'
   ]
 
   /** Variables del Modal input */
@@ -111,7 +111,7 @@ export class ConfigComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Agrega el nuevo item al array desigespecificonado y limpia la variable modalValue
+   * Agrega el nuevo item al array especificando y limpia la variable modalValue
    * @param type string, array donde se va a almacenar el nuevo item
    */
   addItem(type: string): void {

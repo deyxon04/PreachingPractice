@@ -6,7 +6,8 @@
     </ion-card-header>
 
     <ion-card-content>
-      <p>Aquí puedes agregar jugadores participantes, marcos de circustancias para la predi, temas de conversacion y los
+      <p>Aquí puedes agregar jugadores participantes, marcos de circunstancias para la predicación, temas de
+        conversación y los
         diferentes territorios donde quieres practicar.</p>
       <p>Que te diviertas!</p>
     </ion-card-content>
@@ -16,8 +17,8 @@
   <ion-card>
     <ion-card-content>
       <div class="d-flex between">
-        <h2>Jugadores</h2>
-        <ion-button (click)="getModal('Players')" expand="block" fill="clear" shape="round">
+        <h2 class="content-center">Jugadores</h2>
+        <ion-button (click)="getModal('Players')" expand="block">
           Agregar
         </ion-button>
       </div>
@@ -33,27 +34,29 @@
   <ion-card>
     <ion-card-content>
       <div class="d-flex between">
-        <h2>Sitios</h2>
-        <ion-button (click)="getModal('Sites')" expand="block" fill="clear" shape="round">
+        <h2 class="content-center">Sitios</h2>
+        <ion-button (click)="getModal('Sites')" expand="block">
           Agregar
         </ion-button>
       </div>
-
-      <list-component [items]="sites"></list-component>
-
+      <div class="pt-2">
+        <list-component [items]="sites"></list-component>
+      </div>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-content>
       <div class="d-flex between">
-        <h2>Situaciones</h2>
-        <ion-button (click)="getModal('Situations')" expand="block" fill="clear" shape="round">
+        <h2 class="content-center">Situaciones</h2>
+        <ion-button (click)="getModal('Situations')" expand="block">
           Agregar
         </ion-button>
       </div>
 
-      <list-component [items]="situations"></list-component>
+      <div class="pt-2">
+        <list-component [items]="situations"></list-component>
+      </div>
 
     </ion-card-content>
   </ion-card>
@@ -62,12 +65,14 @@
     <ion-card-content>
       <div class="d-flex between">
         <h2>Temas</h2>
-        <ion-button (click)="getModal('Temes')" expand="block" fill="clear" shape="round">
+        <ion-button (click)="getModal('Temes')" expand="block">
           Agregar
         </ion-button>
       </div>
 
-      <list-component [items]="temes"></list-component>
+      <div class="pt-2">
+        <list-component [items]="temes"></list-component>
+      </div>
 
     </ion-card-content>
   </ion-card>

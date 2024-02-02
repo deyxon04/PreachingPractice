@@ -1,19 +1,29 @@
 .d-flex {
-    display: flex;
+  display: flex;
 }
 
 .between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .overflow-x {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 .overflow-y {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 .grid {
-    max-height: 10%;
+  max-height: 10%;
+}
+
+.content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pt-2 {
+  padding-top: 15px !important;
 }
