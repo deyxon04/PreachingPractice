@@ -1,0 +1,31 @@
+.center{
+    justify-content: center;
+    align-items: center;
+}
+.d-flex {
+    display: flex;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+.m-5 {
+    margin: 5px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+#taskassign {
+    transition: opacity 1s, height 1s;
+}
+
+.transition {
+    transition: opacity 1s, height 1s;
+}
+
+.player {
+    font-size: 50px;
+}

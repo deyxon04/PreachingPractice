@@ -1,0 +1,15 @@
+
+<div #diceContent id="diceContent" [@disappear]="isVisible" class="container " *ngIf="players.length !== filterPlayers.length">
+
+  <div class="dice-content ">
+    <div #dice class="dice" id="dice" [@rotation]="diceState" (click)="diceRotate()">
+        <div class="face truncate" id="face1"><ion-text color="tertiary">  ? </ion-text></div>
+        <div class="face truncate" id="face2"><ion-text color="tertiary">  ? </ion-text></div>
+        <div class="face truncate" id="face3"><ion-text color="tertiary">  ? </ion-text></div>
+        <div class="face truncate" id="face4"><ion-text color="tertiary">  ? </ion-text></div>
+        <div class="face truncate" id="face5"><ion-text color="tertiary">  ? </ion-text></div>
+        <div class="face truncate" id="face6"><ion-text color="tertiary">  ? </ion-text></div>
+    </div>
+  </div>
+
+</div>

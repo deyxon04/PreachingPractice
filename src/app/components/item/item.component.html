@@ -1,0 +1,9 @@
+  <ion-item>
+    <ion-label *ngIf="label">{{label}}</ion-label>
+    <ion-text class="ion-text-center" color="tertiary" *ngIf="text">
+      <strong> {{text}} </strong>
+    </ion-text>
+    <ion-button (click)="action(parameters)" expand="block" fill="clear" shape="round" slot="end" *ngIf="action">
+      {{actionTitle}}
+    </ion-button>
+  </ion-item>

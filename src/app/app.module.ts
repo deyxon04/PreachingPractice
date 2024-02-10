@@ -29,7 +29,9 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [
   localStorageSyncReducer
 ];
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -37,9 +39,14 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [
     }),
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  ],
+  exports: [
+
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

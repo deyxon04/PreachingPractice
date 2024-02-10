@@ -1,0 +1,32 @@
+
+
+<ion-row class="">
+  <ion-col size="12">
+
+    <ion-card class="d-flex between">
+      <ion-text class="d-flex center m-5 bold" color="tertiary">
+        <h1 class="player">{{results['player']}}</h1>
+      </ion-text>
+      <div class="d-flex center">
+        <button-component [title]="'Volver a tirar dado'" [action]="resetResult" [icon]="'refresh'" [slot]="'end'"></button-component>
+      </div>
+    </ion-card>
+
+    <div class="d-flex center m-5 "  #taskassign id="taskassign" [@disappear]="buttonVisible">
+      <button-component [title]="'Asignar la tarea de ' + results['player']" [parameter]="" [action]="taskAssign" [isLoading]="buttonLoading" ></button-component>
+    </div>
+
+    <ion-list #tasklist id="tasklist" [@disappear]="listVisible">
+
+      <item-component [label]="'Sitio'" [text]="content.site.title" *ngIf="content.site"></item-component>
+    
+      <item-component [label]="'Situacion'" [text]="content.situation.title" *ngIf="content.situation"></item-component>
+    
+      <item-component [label]="'Tema'" [text]="content.teme.title" *ngIf="content.teme"></item-component>
+    
+    </ion-list>
+
+  </ion-col>
+</ion-row>
+
+

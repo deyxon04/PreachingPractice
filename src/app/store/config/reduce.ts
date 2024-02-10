@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import { SetPlayers } from "./action";
+import { SetPlayers, SetRepeat, SetSites, SetSituations, SetTemes, SetHelp } from "./action";
 
 
 /**
@@ -7,8 +7,13 @@ import { SetPlayers } from "./action";
  */
 export interface ConfigState {
   players: Array<string>,
+  sites: Array<any>,
+  situations: Array<any>,
+  temes: Array<any>,
   topic: Array<string>,
-  appTitle: string
+  appTitle: string,
+  repeat: boolean,
+  help: boolean
 }
 
 /**
@@ -16,8 +21,13 @@ export interface ConfigState {
  */
 const initialState: ConfigState = {
   players: [],
+  sites: [],
+  situations: [],
+  temes: [],
   topic: [],
-  appTitle: 'Preaching Practice'
+  appTitle: 'Preaching Practice',
+  repeat: true,
+  help: true
 };
 
 /**
@@ -26,6 +36,11 @@ const initialState: ConfigState = {
 const _configReducer = createReducer(
   initialState,
   on(SetPlayers, (state, { players }) => setPlayers(state, players)),
+  on(SetSites, (state, { sites }) => setSites(state, sites)),
+  on(SetSituations, (state, { situations }) => setSituations(state, situations)),
+  on(SetTemes, (state, { temes }) => setTemes(state, temes)),
+  on(SetRepeat, (state, { repeat }) => setRepeat(state, repeat)),
+  on(SetHelp, (state, { help }) => setHelp(state, help)),
 );
 
 
@@ -40,6 +55,41 @@ const setPlayers = (state: any, players: Array<string>) => {
   return {
     ...state,
     players
+  }
+
+}
+const setSites = (state: any, sites: Array<string>) => {
+  return {
+    ...state,
+    sites
+  }
+
+}
+const setSituations = (state: any, situations: Array<string>) => {
+  return {
+    ...state,
+    situations
+  }
+
+}
+const setTemes = (state: any, temes: Array<string>) => {
+  return {
+    ...state,
+    temes
+  }
+
+}
+const setRepeat = (state: any, repeat: boolean) => {
+  return {
+    ...state,
+    repeat
+  }
+
+}
+const setHelp = (state: any, help: boolean) => {
+  return {
+    ...state,
+    help
   }
 
 }
