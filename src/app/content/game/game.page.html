@@ -15,22 +15,31 @@
   <ion-card class="ion-padding content">
     <ion-card-content>
       <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8"> 
 
-        <ion-col class="" size="12" size-sm="8">
-          <ion-text color="tertiary"  *ngIf="msg && players.length !== 0 && help">
-            <h1>{{msg}}</h1>
+          <ion-text *ngIf="help.isActive && gameStatus.state !== 'finish'">
+            <h1>{{help.msg}}</h1>
           </ion-text>
-          <ion-text color="warning" *ngIf="players.length == 0">
+          
+          <ion-text color="danger" *ngIf="players.length == 0">
             <h1>Debes agregar participantes en configuracion para poder lanzar el dado.</h1>
           </ion-text>
+
+          <div *ngIf="gameStatus.state == 'finish' && allPlayersFinished()">
+            <ion-text color="warning">
+              <h1>Felicidades!, todos los participantes han tenido su turno, puedes volver a iniciar o añadir más participantes.</h1>
+            </ion-text>
+            <button-component [title]="'Volver a empezar'" [action]="resetFilterPlayers"></button-component>
+          </div>
+
         </ion-col>
 
-        <ion-col class="" size="12" size-sm="8" *ngIf="!results['player']">
-          <dice-component [players]="players" [filterPlayers]="filterPlayers" [repeat]="repeat" [results]="results" [help]="setMsg"></dice-component>
+        <ion-col class="" size="12" size-sm="8" *ngIf="gameStatus.state == 'dice'">
+          <dice-component [players]="players" [filterPlayers]="filterPlayers" [repeat]="repeat" [gameStatus]="gameStatus" [setHelpMsg]="setHelpMsg" [setState]="setState" [allPlayersFinished]="allPlayersFinished"></dice-component>
         </ion-col>
 
-        <ion-col class="" size="12" size-sm="8" *ngIf="results.player">
-          <task-component [results]="results" [contents]="{sites, situations, temes}" [filterPlayers]="filterPlayers" [repeat]="repeat" [help]="setMsg" [resetResult]="resetResult"></task-component>
+        <ion-col class="" size="12" size-sm="8" *ngIf="gameStatus.state == 'task'">
+          <task-component [players]="players" [filterPlayers]="filterPlayers" [repeat]="repeat" [gameStatus]="gameStatus" [setHelpMsg]="setHelpMsg" [setState]="setState" [allPlayersFinished]="allPlayersFinished" [contents]="{sites, situations, temes}"></task-component>
         </ion-col>
         
       </ion-row>

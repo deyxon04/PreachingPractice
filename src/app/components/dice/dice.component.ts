@@ -41,10 +41,11 @@ export class DiceComponent implements OnInit, AfterViewInit {
   /** Variables de entrada */
   @Input() players: Array<string> = []
   @Input() filterPlayers: Array<string> = []
-  @Input() callback: Function | null = null
-  @Input() results: any
   @Input() repeat: boolean = true
-  @Input() help: Function | null = null
+  @Input() gameStatus: any
+  @Input() setHelpMsg!: Function
+  @Input() setState!: Function
+  @Input() allPlayersFinished!: Function
 
   /** Configuracion de entorno */
   diceState: string = 'normal';
@@ -53,6 +54,7 @@ export class DiceComponent implements OnInit, AfterViewInit {
   private dice: any;
   private faces: any;
   private isLocked: boolean = false
+
   /** Variables del juego */
   private facesMapping: Array<any> = []
 
@@ -73,32 +75,27 @@ export class DiceComponent implements OnInit, AfterViewInit {
   /** Animacion de rotacion del dado 3D y asignacion aleatoria de caras para el mismo */
   diceRotate() {
     if (this.players.length == 0 || this.isLocked) return
+    if (this.allPlayersFinished()) this.setState('finish')
 
-    this.results['player'] = null
     this.diceState = (this.diceState === 'normal') ? 'rotate' : 'normal';
-    if (this.help) this.help('¿Preparados?...')
+    this.setHelpMsg('¿Preparados?...')
     setTimeout(() => {
-      if (this.help) this.help('Ahí va!!!...')
+      this.setHelpMsg('Ahí va!!!...')
     }, 1000);
 
     // Asigno las caras del dado, el resultado y la animacion
     if (this.setFacesMapping(this.players)) {
       const result = this.diceState == 'rotate' ? this.facesMapping[4].name : this.facesMapping[0].name
       setTimeout(() => {
-        if (this.help) this.help(`Muy bien!, ahora, asigna la tarea de ${result}.`)
-      }, 2000);
-      setTimeout(() => {
-        this.isVisible = 'hidden'
+        if (this.gameStatus.state === 'dice') this.isVisible = 'hidden'
       }, 3000);
       setTimeout(() => {
-        this.results['player'] = result
+        if (this.gameStatus.state === 'dice') this.gameStatus.player = result
+        if (this.gameStatus.state === 'dice') this.setState('task')
       }, 4000);
-    } else {
-      if (this.help) this.help('Todos los jugadores han participado, puedes reiniciar el filtro o agregar más participantes')
     }
-
+    
     this.isLocked = true
-
   }
 
   /**
