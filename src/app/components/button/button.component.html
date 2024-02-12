@@ -1,3 +1,11 @@
-<ion-button (click)="action(parameter)" expand="block">
+<ion-button (click)="action(parameter)" expand="block" *ngIf="!icon && !isLoading">
   {{title}}
+</ion-button>
+
+<ion-fab-button (click)="action(parameter)" *ngIf="icon && !isLoading" slot="slot">
+  <ion-icon name="{{icon}}" ></ion-icon>
+</ion-fab-button>
+
+<ion-button expand="block" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
 </ion-button>

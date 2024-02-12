@@ -1,0 +1,149 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title color="tertiary">CONFIGURACION</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-sm="12" size-md="10" size-lg="8">
+
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-card-subtitle>{{appTitle}}</ion-card-subtitle>
+          <ion-card-title color="tertiary" size="large">CONFIGURACION</ion-card-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-text color="tertiary">
+            <p>Aquí puedes agregar participantes, marcos de circunstancias para la predicación, temas de
+              conversación y los
+              diferentes territorios donde quieres practicar.</p>
+            <p>Que te diviertas!</p>
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <div class="content-header">
+            <ion-text color="tertiary" class="content-title">
+              <h1>Jugadores</h1>
+            </ion-text>
+            <div class="content-input">
+              <input-component
+              [id]="'players'" 
+              [type]="'text'" 
+              [placeholder]="'Agrega más aquí.'" 
+              [action]="addItem" 
+              [parameter]="'players'" 
+              [icon]="'add-circle'">
+            </input-component>
+            </div> 
+          </div>
+          <div class="d-flex overflow-x ">
+            <card-component [player]="player" [listName]="'players'" [callback]="removeItem" [index]="ind" *ngFor="let player of players; let ind = index"></card-component>
+          </div>
+      </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <div class="pt-2">
+            <ion-item (click)="setStore('repeat', repeat)">
+              <ion-label>¿Repetir participantes?</ion-label>
+              <ion-checkbox slot="end" [(ngModel)]="repeat"></ion-checkbox>
+            </ion-item>
+          </div>
+          <div class="pt-2">
+            <ion-item (click)="setStore('help', help)">
+              <ion-label>Activar ayuda</ion-label>
+              <ion-checkbox slot="end" [(ngModel)]="help"></ion-checkbox>
+            </ion-item>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <div class="content-header">
+            <ion-text color="tertiary" class="content-title">
+              <h1>Sitios</h1>
+            </ion-text>
+            <div class="content-input">
+              <input-component 
+              [id]="'sites'" 
+              [type]="'text'" 
+              [placeholder]="'Agrega más aquí.'" 
+              [action]="addItem" 
+              [parameter]="'sites'" 
+              [icon]="'add-circle'"
+              [count]="30">
+            </input-component>
+            </div>
+          </div>
+          <div class="pt-2">
+
+            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="site.title" [parameters]="{listName:'sites', item: site}" *ngFor="let site of sites"></item-component>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <div class="content-header">
+            <ion-text color="tertiary" class="content-title">
+              <h1>Situaciones</h1>
+            </ion-text>
+            <div class="content-input">
+              <input-component 
+              [id]="'situations'" 
+              [type]="'text'" 
+              [placeholder]="'Agrega más aquí.'" 
+              [action]="addItem" 
+              [parameter]="'situations'" 
+              [icon]="'add-circle'"
+              [count]="30">
+            </input-component>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="situation.title"  [parameters]="{listName:'situations', item: situation}" *ngFor="let situation of situations"></item-component>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <div class="content-header">
+            <ion-text color="tertiary" class="content-title">
+              <h1>Temas</h1>
+            </ion-text>
+            <div class="content-input">
+              <input-component 
+              [id]="'temes'" 
+              [type]="'text'" 
+              [placeholder]="'Agrega más aquí.'" 
+              [action]="addItem" 
+              [parameter]="'temes'" 
+              [icon]="'add-circle'"
+              [count]="30">
+            </input-component>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="teme.title"   [parameters]="{listName:'temes', item: teme}" *ngFor="let teme of temes"></item-component>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+  
+    </ion-col>
+  </ion-row>
+</ion-content>

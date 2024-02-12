@@ -1,0 +1,5 @@
+<ion-input id="{{id}}" placeholder="{{placeholder}}" fill="outline" [(ngModel)]="inputModel" type="{{type}}" (keyup.enter)="addItem()" [counter]="true" maxlength="{{count}}">
+  <ion-button fill="clear" slot="end" aria-label="Show/hide" (click)="addItem()" *ngIf="inputModel.trim().length > 0">
+    <ion-icon slot="icon-only" name="{{icon}}" aria-hidden="true"></ion-icon>
+  </ion-button>
+</ion-input>

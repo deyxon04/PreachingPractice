@@ -10,6 +10,8 @@ export class ButtonComponent  implements OnInit {
   @Input() title: string = ''
   @Input() action: any
   @Input() parameter: any | null = null
+  @Input() icon: string| null = null
+  @Input() isLoading: boolean = false
 
   constructor() { }
 

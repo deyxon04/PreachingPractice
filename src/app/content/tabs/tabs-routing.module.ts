@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-import { ConfigComponent } from '../config/config.component';
-import { GameComponent } from '../game/game.component';
+import { ConfigPage } from '../config/config.page';
+import { GamePage } from '../game/game.page';
 
 const routes: Routes = [
   {
@@ -11,11 +11,11 @@ const routes: Routes = [
     children: [
       {
         path: 'config',
-        component: ConfigComponent
+        component: ConfigPage
       },
       {
         path: 'game',
-        component: GameComponent
+        component: GamePage
       },
       {
         path: '',

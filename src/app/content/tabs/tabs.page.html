@@ -1,15 +1,16 @@
-<ion-tabs>
 
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="config" href="/config">
-      <ion-icon aria-hidden="true" name="settings"></ion-icon>
-      <ion-label>Configuración</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="game" href="/game">
-      <ion-icon aria-hidden="true" name="game-controller"></ion-icon>
-      <ion-label>Juego</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-
-</ion-tabs>
+    <ion-tabs #iontabbar (ionScroll)="onContentScroll($event)">
+      
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="config" href="/config">
+          <ion-icon aria-hidden="true" name="settings"></ion-icon>
+          <ion-label>Configuración</ion-label>
+        </ion-tab-button>
+        
+        <ion-tab-button tab="game" href="/game">
+          <ion-icon aria-hidden="true" name="game-controller"></ion-icon>
+          <ion-label>Juego</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+      
+    </ion-tabs>

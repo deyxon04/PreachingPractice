@@ -1,0 +1,70 @@
+
+.container {
+    height: 300px;
+}
+.dice-content {
+    margin-top: 80px;
+    height: 200px;
+}
+
+#diceContent {
+    transition: opacity 1s, height 1s;
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1 {
+    font-size: 2rem;
+}
+
+.dice {
+    left: 50%;
+    translate: -50%;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: rotateX(-15deg) rotateY(-15deg);
+    cursor: pointer;
+}
+
+.face {
+    // border: solid 1px green;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background-color: #a8b0ff;
+    border: 0.5px solid #000;
+    font-size: 20px;
+    line-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+#face1 {
+    transform: rotateX(0deg) translateZ(100px);
+}
+
+#face2 {
+    transform: rotateX(90deg) translateZ(100px);
+}
+
+#face3 {
+    transform: rotateX(180deg) translateZ(100px);
+}
+
+#face4 {
+    transform: rotateX(270deg) translateZ(100px);
+}
+
+#face5 {
+    transform: rotateY(90deg) translateZ(100px);
+}
+
+#face6 {
+    transform: rotateY(270deg) translateZ(100px);
+}
