@@ -5,45 +5,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-card-subtitle>{{appTitle}}</ion-card-subtitle>
-      <ion-card-title color="tertiary" size="large">JUGAR</ion-card-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-sm="12" size-md="10" size-lg="8">
+  
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-card-subtitle>{{appTitle}}</ion-card-subtitle>
+          <ion-card-title color="tertiary" size="large">JUGAR</ion-card-title>
+        </ion-toolbar>
+      </ion-header>
 
-  <ion-card class="ion-padding content">
-    <ion-card-content>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="12" size-sm="8"> 
+      <ion-card class="ion-padding content">
 
-          <ion-text *ngIf="help.isActive && gameStatus.state !== 'finish'">
-            <h1>{{help.msg}}</h1>
-          </ion-text>
-          
-          <ion-text color="danger" *ngIf="players.length == 0">
-            <h1>Debes agregar participantes en configuracion para poder lanzar el dado.</h1>
-          </ion-text>
-
-          <div *ngIf="gameStatus.state == 'finish' && allPlayersFinished()">
-            <ion-text color="warning">
-              <h1>Felicidades!, todos los participantes han tenido su turno, puedes volver a iniciar o añadir más participantes.</h1>
-            </ion-text>
-            <button-component [title]="'Volver a empezar'" [action]="resetFilterPlayers"></button-component>
-          </div>
-
-        </ion-col>
-
-        <ion-col class="" size="12" size-sm="8" *ngIf="gameStatus.state == 'dice'">
-          <dice-component [players]="players" [filterPlayers]="filterPlayers" [repeat]="repeat" [gameStatus]="gameStatus" [setHelpMsg]="setHelpMsg" [setState]="setState" [allPlayersFinished]="allPlayersFinished"></dice-component>
-        </ion-col>
-
-        <ion-col class="" size="12" size-sm="8" *ngIf="gameStatus.state == 'task'">
-          <task-component [players]="players" [filterPlayers]="filterPlayers" [repeat]="repeat" [gameStatus]="gameStatus" [setHelpMsg]="setHelpMsg" [setState]="setState" [allPlayersFinished]="allPlayersFinished" [contents]="{sites, situations, temes}"></task-component>
-        </ion-col>
+        <ion-text *ngIf="help.isActive && gameStatus.state !== 'finish' && players.length !== 0">
+          <h1>{{help.msg}}</h1>
+        </ion-text>
         
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
+        <ion-text color="danger" *ngIf="players.length == 0">
+          <h1>Debes agregar participantes en configuracion para poder lanzar el dado.</h1>
+        </ion-text>
 
+        <div *ngIf="gameStatus.state == 'finish' && allPlayersFinished() && players.length !== 0">
+          <ion-text color="warning">
+            <h1>Felicidades!, todos los participantes han tenido su turno, puedes volver a iniciar o añadir más participantes.</h1>
+          </ion-text>
+          <button-component [title]="'Volver a empezar'" [action]="resetFilterPlayers"></button-component>
+        </div>
+
+        <dice-component [players]="players" [filterPlayers]="filterPlayers" [repeat]="repeat" [gameStatus]="gameStatus" [setHelpMsg]="setHelpMsg" [setState]="setState" [allPlayersFinished]="allPlayersFinished" *ngIf="gameStatus.state == 'dice' && players.length !== 0"></dice-component>
+
+        <task-component [players]="players" [filterPlayers]="filterPlayers" [repeat]="repeat" [gameStatus]="gameStatus" [setHelpMsg]="setHelpMsg" [setState]="setState" [allPlayersFinished]="allPlayersFinished" [contents]="{sites, situations, temes}" *ngIf="(gameStatus.state == 'task' || gameStatus.state == 'timer') && players.length !== 0"></task-component>
+
+        <timer-component [time]="timer.time" *ngIf="gameStatus.state == 'timer' && timer.isActive"></timer-component>
+
+      </ion-card>
+
+    </ion-col>
+  </ion-row>
 </ion-content>

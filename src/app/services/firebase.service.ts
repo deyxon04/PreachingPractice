@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, query, doc, addDoc, setDoc, getDocs, where, getDoc, deleteDoc, onSnapshot, Unsubscribe } from 'firebase/firestore'
 import { Observable, Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +13,14 @@ export class FireDatabaseService implements OnDestroy {
   /** Variables de firebase */
   private firebase = initializeApp(environment.firebaseConfig)
   private database = getFirestore(this.firebase)
-
+  
   /** Objetos de contenido */
   private collections$: any = {}
   private collections: any = {}
-
+  
   /** Array de subscripciones */
   private subs: Array<any> = []
-
+  
   constructor() {
 
   }

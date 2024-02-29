@@ -1,4 +1,4 @@
-import { SetHelp, SetPlayers, SetRepeat, SetSites, SetSituations, SetTemes } from './../../store/config/action';
+import { SetHelp, SetPlayers, SetRepeat, SetSites, SetSituations, SetTemes, SetTimer } from './../../store/config/action';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state';
@@ -33,6 +33,15 @@ export class ConfigPage implements OnInit, OnDestroy {
   /** variables de configuracion */
   public repeat: boolean = true
   public help: boolean = true
+  public timer: any = {
+    isActive: false,
+    time: {
+      hours: 0,
+      minuts: 0,
+      seconds: 0,
+    }
+  }
+  num: number = 0
 
   /**
    * Constructor de la clase ConfigComponent
@@ -74,7 +83,7 @@ export class ConfigPage implements OnInit, OnDestroy {
    * @returns {void}
    */
   private getStore(): void {
-    this.subs.push(this.config$.subscribe(({ appTitle, players, sites, situations, temes, repeat, help }) => {
+    this.subs.push(this.config$.subscribe(({ appTitle, players, sites, situations, temes, repeat, help, timer }) => {
       this.appTitle = appTitle;
       this.players = players
       this.sites = sites
@@ -82,7 +91,23 @@ export class ConfigPage implements OnInit, OnDestroy {
       this.temes = temes
       this.repeat = repeat
       this.help = help
+      this.timer = timer
     }));
+  }
+
+  /**
+   * Almacena los datos en el storage local
+   * @param listName nombre de lista
+   * @param value datos de la lista
+   */
+  setStore(listName: string, value: any): void {
+    if (listName.toLowerCase() === 'players'.toLowerCase()) this.store.dispatch(SetPlayers({ players: value }))
+    if (listName.toLowerCase() === 'sites'.toLowerCase()) this.store.dispatch(SetSites({ sites: value }))
+    if (listName.toLowerCase() === 'situations'.toLowerCase()) this.store.dispatch(SetSituations({ situations: value }))
+    if (listName.toLowerCase() === 'temes'.toLowerCase()) this.store.dispatch(SetTemes({ temes: value }))
+    if (listName.toLowerCase() === 'repeat'.toLowerCase()) this.store.dispatch(SetRepeat({ repeat: value }))
+    if (listName.toLowerCase() === 'help'.toLowerCase()) this.store.dispatch(SetHelp({ help: value }))
+    if (listName.toLowerCase() === 'timer'.toLowerCase()) this.store.dispatch(SetTimer({ timer: value }))
   }
 
   /**
@@ -104,7 +129,7 @@ export class ConfigPage implements OnInit, OnDestroy {
    * Remueve el item del array
    * @param index indice de item
    */
-  removeItem = async ({listName, item}: any) => {
+  removeItem = async ({ listName, item }: any) => {
     let list = []
     list = this.listAssign(listName)
     if (listName.toLowerCase() != 'players'.toLowerCase()) await this.fireDatabase.deleteDocument(listName, item.id)
@@ -114,22 +139,19 @@ export class ConfigPage implements OnInit, OnDestroy {
     this.setStore(listName, newList)
   }
 
-  /**
-   * Almacena los datos en el storage local
-   * @param listName nombre de lista
-   * @param value datos de la lista
-   */
-  setStore(listName: string, value: any): void {
-    if (listName.toLowerCase() === 'players'.toLowerCase()) this.store.dispatch(SetPlayers({ players: value }))
-    if (listName.toLowerCase() === 'sites'.toLowerCase()) this.store.dispatch(SetSites({ sites: value }))
-    if (listName.toLowerCase() === 'situations'.toLowerCase()) this.store.dispatch(SetSituations({ situations: value }))
-    if (listName.toLowerCase() === 'temes'.toLowerCase()) this.store.dispatch(SetTemes({ temes: value }))
-    if (listName.toLowerCase() === 'repeat'.toLowerCase()) this.store.dispatch(SetRepeat({ repeat: value }))
-    if (listName.toLowerCase() === 'help'.toLowerCase()) this.store.dispatch(SetHelp({ help: value }))
+  /** Filtra los model de los input del timer para almacenar los valores limpios */
+  saveTimer(part: string, event: any) {
+    let value = parseInt(event.replace(/^0+|[^0-9]/g, ""))
+    if (Number.isNaN(value)) value = 0
+
+    if (part == 'hours') this.timer.time.hours = value
+    if (part == 'minuts') this.timer.time.minuts = value
+    if (part == 'seconds') this.timer.time.seconds = value
+    this.setStore('timer', this.timer)
   }
 
   /** Setea la variable de preferencia repeat para el juego */
-  setRepeat(){
+  setRepeat() {
     const value = !this.repeat ? false : true
     this.store.dispatch(SetRepeat({ repeat: value }))
   }
