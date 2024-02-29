@@ -18,7 +18,7 @@ import { Component, Input, OnInit } from '@angular/core';
         display: 'none'
       })),
       transition('visible => hidden', [
-        animate('1s')
+        animate('0s')
       ]),
       transition('hidden => visible', [
         animate('1s')
@@ -58,6 +58,7 @@ export class TaskComponent implements OnInit {
    */
   taskAssign = () => {
     if (this.isLocked) return
+    this.listVisible = 'hidden'
 
     this.gameStatus.site = this.contents['sites'][Math.floor(Math.random() * this.contents['sites'].length)]
     this.gameStatus.situation = this.contents['situations'][Math.floor(Math.random() * this.contents['situations'].length)]
@@ -70,11 +71,13 @@ export class TaskComponent implements OnInit {
       this.listVisible = 'visible'
     }, 500);
     setTimeout(() => {
-      this.buttonVisible = 'hidden'
-    }, 1500);
+    this.isLocked = false
+    this.buttonLoading = false
+    }, 2000);
     setTimeout(() => {
       if (this.gameStatus.state === 'task') this.setHelpMsg(`Excelente ${this.gameStatus.player}!, ahora resuelve el tema, mucho exito. Cuando termines puedes volver a lanzar el dado para que otro participante tambien tenga oportunidad.`)
-    }, 2500);
+      this.gameStatus.state = 'timer'
+    }, 2100);
 
     this.isLocked = true
   }

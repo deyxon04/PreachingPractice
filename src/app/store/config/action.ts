@@ -10,6 +10,7 @@ enum ActionsEnum {
   SET_TEMES = 'SetTemes',
   SET_REPEAT = 'SetRepeat',
   SET_HELP = 'SetHelp',
+  SET_TIMER = 'SetTimer',
 }
 
 /**
@@ -38,4 +39,8 @@ export const SetRepeat = createAction(
 export const SetHelp = createAction(
   ActionsEnum.SET_HELP,
   props<{ help: boolean }>()
+);
+export const SetTimer= createAction(
+  ActionsEnum.SET_TIMER,
+  props<{ timer: boolean }>()
 );

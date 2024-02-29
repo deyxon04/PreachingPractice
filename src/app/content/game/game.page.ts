@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -35,6 +34,15 @@ export class GamePage implements OnInit {
     isActive: true,
     msg: ''
   }
+  public timer: any = {
+    isActive: false,
+    time: {
+      hours: 0,
+      minuts: 0,
+      seconds: 0,
+    }
+  }
+
   public repeat: boolean = true
 
   /**
@@ -65,13 +73,11 @@ export class GamePage implements OnInit {
 
   /** Siclo de vida que se activa cada vez que se entra a la pagina */
   ionViewWillEnter() {
-    if (!this.allPlayersFinished() && this.gameStatus.state === 'finish') this.setState('dice')
-    if (this.allPlayersFinished() && this.players.length !== 0 && (this.gameStatus.state === 'dice' || this.gameStatus.state === 'task')) this.setState('finish')
-    if (this.players.length === 0) this.setState('noPlayers')
-    if (this.repeat) {
-      this.filterPlayers = []
-      if (this.gameStatus.state = 'finish') this.setState('dice')
-    }
+    if (
+      (!this.allPlayersFinished() || this.repeat) && this.gameStatus.state === 'finish') this.setState('dice')
+      if (!this.repeat && this.allPlayersFinished() && this.players.length !== 0 && this.gameStatus.state === 'dice') this.setState('finish')
+      if (this.players.length === 0) this.setState('noPlayers')
+      if (this.repeat) this.filterPlayers = []
   }
 
   /**
@@ -79,7 +85,7 @@ export class GamePage implements OnInit {
    * @returns {void}
    */
   private getStore(): void {
-    this.subs.push(this.config$.subscribe(({ appTitle, players, repeat, help, sites, situations, temes }) => {
+    this.subs.push(this.config$.subscribe(({ appTitle, players, repeat, help, sites, situations, temes, timer }) => {
       this.appTitle = appTitle;
       this.players = players
       this.repeat = repeat
@@ -87,6 +93,7 @@ export class GamePage implements OnInit {
       this.situations = situations
       this.temes = temes
       this.help.isActive = help
+      this.timer = timer
     }));
   }
 

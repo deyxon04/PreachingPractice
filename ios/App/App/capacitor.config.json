@@ -1,0 +1,8 @@
+{
+	"appId": "com.preachingpractice",
+	"appName": "Preaching practice",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https"
+	}
+}

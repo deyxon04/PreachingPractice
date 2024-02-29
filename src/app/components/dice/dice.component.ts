@@ -84,17 +84,16 @@ export class DiceComponent implements OnInit, AfterViewInit {
     }, 1000);
 
     // Asigno las caras del dado, el resultado y la animacion
-    if (this.setFacesMapping(this.players)) {
-      const result = this.diceState == 'rotate' ? this.facesMapping[4].name : this.facesMapping[0].name
-      setTimeout(() => {
-        if (this.gameStatus.state === 'dice') this.isVisible = 'hidden'
-      }, 3000);
-      setTimeout(() => {
-        if (this.gameStatus.state === 'dice') this.gameStatus.player = result
-        if (this.gameStatus.state === 'dice') this.setState('task')
-      }, 4000);
-    }
-    
+    this.setFacesMapping(this.players)
+    const result = this.diceState == 'rotate' ? this.facesMapping[4].name : this.facesMapping[0].name
+    setTimeout(() => {
+      if (this.gameStatus.state === 'dice') this.isVisible = 'hidden'
+    }, 3000);
+    setTimeout(() => {
+      if (this.gameStatus.state === 'dice') this.gameStatus.player = result
+      if (this.gameStatus.state === 'dice') this.setState('task')
+    }, 4000);
+
     this.isLocked = true
   }
 

@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import { SetPlayers, SetRepeat, SetSites, SetSituations, SetTemes, SetHelp } from "./action";
+import { SetPlayers, SetRepeat, SetSites, SetSituations, SetTemes, SetHelp, SetTimer } from "./action";
 
 
 /**
@@ -13,7 +13,8 @@ export interface ConfigState {
   topic: Array<string>,
   appTitle: string,
   repeat: boolean,
-  help: boolean
+  help: boolean,
+  timer: any
 }
 
 /**
@@ -27,7 +28,15 @@ const initialState: ConfigState = {
   topic: [],
   appTitle: 'Preaching Practice',
   repeat: true,
-  help: true
+  help: true,
+  timer: {
+    isActive: false,
+    time: {
+      hours: 0,
+      minuts: 0,
+      seconds: 0
+    }
+  },
 };
 
 /**
@@ -41,6 +50,7 @@ const _configReducer = createReducer(
   on(SetTemes, (state, { temes }) => setTemes(state, temes)),
   on(SetRepeat, (state, { repeat }) => setRepeat(state, repeat)),
   on(SetHelp, (state, { help }) => setHelp(state, help)),
+  on(SetTimer, (state, { timer }) => setTimer(state, timer)),
 );
 
 
@@ -90,6 +100,13 @@ const setHelp = (state: any, help: boolean) => {
   return {
     ...state,
     help
+  }
+
+}
+const setTimer = (state: any, timer: boolean) => {
+  return {
+    ...state,
+    timer
   }
 
 }

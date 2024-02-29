@@ -1,0 +1,30 @@
+<div class="{{animation}} mb-5">
+  <div class="f-column slot ion-margin">
+    <span class="number"> <strong> {{hours}} </strong> </span>
+    <span class="text">Horas</span>
+  </div>
+  <div class="f-column slot ion-margin">
+    <span class="number"> <strong> {{minuts}} </strong> </span>
+    <span class="text">Minutos</span>
+  </div>
+  <div class="f-column slot ion-margin">
+    <span class="number"> <strong> {{seconds}} </strong> </span>
+    <span class="text">Segundos</span>
+  </div>
+</div>
+
+<div class="mt-5">
+  <ion-fab-button class="ion-margin" (click)="reset()">
+    <ion-icon name="refresh"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button class="ion-margin" (click)="timer ? pause() : start()">
+    <ion-icon [name]="timer ? 'pause' : 'play'"></ion-icon>
+  </ion-fab-button>
+</div>
+
+  <audio id="alarm" *ngIf="alarmActive">
+  <!-- <audio id="alarm" controls> -->
+    <source src="../../../assets/audio/alarm.mp3" type="audio/mp3">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+  

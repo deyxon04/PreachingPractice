@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { InputComponent } from '../components/input/input.component';
 import { TaskComponent } from '../components/task/task.component';
+import { TimerComponent } from '../components/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TaskComponent } from '../components/task/task.component';
     DiceComponent,
     InputComponent,
     TaskComponent,
+    TimerComponent,
   ],
   imports: [
     IonicModule,
@@ -30,6 +32,7 @@ import { TaskComponent } from '../components/task/task.component';
     DiceComponent,
     InputComponent,
     TaskComponent,
+    TimerComponent,
   ],
   
 })

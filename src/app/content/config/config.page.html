@@ -18,7 +18,7 @@
 
       <ion-card>
         <ion-card-content>
-          <ion-text color="tertiary">
+          <ion-text>
             <p>Aquí puedes agregar participantes, marcos de circunstancias para la predicación, temas de
               conversación y los
               diferentes territorios donde quieres practicar.</p>
@@ -34,35 +34,59 @@
               <h1>Jugadores</h1>
             </ion-text>
             <div class="content-input">
-              <input-component
-              [id]="'players'" 
-              [type]="'text'" 
-              [placeholder]="'Agrega más aquí.'" 
-              [action]="addItem" 
-              [parameter]="'players'" 
-              [icon]="'add-circle'">
-            </input-component>
-            </div> 
+              <input-component [id]="'players'" [type]="'text'" [placeholder]="'Agrega más aquí.'" [action]="addItem"
+                [parameter]="'players'" [icon]="'add-circle'">
+              </input-component>
+            </div>
           </div>
           <div class="d-flex overflow-x ">
-            <card-component [player]="player" [listName]="'players'" [callback]="removeItem" [index]="ind" *ngFor="let player of players; let ind = index"></card-component>
+            <ion-label *ngIf="players.length == 0">* No hay participantes todavia *</ion-label>
+            <card-component [player]="player" [listName]="'players'" [callback]="removeItem" [index]="ind"
+              *ngFor="let player of players; let ind = index"></card-component>
           </div>
-      </ion-card-content>
+        </ion-card-content>
       </ion-card>
 
       <ion-card>
         <ion-card-content>
           <div class="pt-2">
+            <!-- REPETIR PARTICIPANTES -->
             <ion-item (click)="setStore('repeat', repeat)">
-              <ion-label>¿Repetir participantes?</ion-label>
+              <ion-label>Repetir participantes</ion-label>
               <ion-checkbox slot="end" [(ngModel)]="repeat"></ion-checkbox>
             </ion-item>
-          </div>
-          <div class="pt-2">
+            <!-- REPETIR PARTICIPANTES -->
+            <!-- AYUDA -->
             <ion-item (click)="setStore('help', help)">
               <ion-label>Activar ayuda</ion-label>
               <ion-checkbox slot="end" [(ngModel)]="help"></ion-checkbox>
             </ion-item>
+            <!-- FIN AYUDA -->
+            <!-- CRONOMETRO -->
+            <ion-item (click)="setStore('timer', timer)">
+              <ion-label>Activar cronometro</ion-label>
+              <ion-checkbox slot="end" [(ngModel)]="timer.isActive"></ion-checkbox>
+            </ion-item>
+            <div class="ion-margin-top" *ngIf="timer.isActive">
+              <ion-text color="tertiary">
+                <ion-label>Tiempo:</ion-label>
+              </ion-text>
+              <ion-row class="between">
+                <ion-col class="ion-margin" size="10" size-md="3">
+                  <ion-input id="hours" label="Horas" label-placement="floating" fill="outline" type="text"
+                    placeholder="Horas" [(ngModel)]="timer.time.hours" (ngModelChange)="saveTimer('hours', $event)" [counter]="true" maxlength="2"></ion-input>
+                </ion-col>
+                <ion-col class="ion-margin" size="10" size-md="3">
+                  <ion-input id="minuts" label="Minutos" label-placement="floating" fill="outline" type="text"
+                    placeholder="Minutos" [(ngModel)]="timer.time.minuts" (ngModelChange)="saveTimer('minuts', $event)" [counter]="true" maxlength="2"></ion-input>
+                </ion-col>
+                <ion-col class="ion-margin" size="10" size-md="3">
+                  <ion-input id="seconds" label="Segundos" label-placement="floating" fill="outline" type="text"
+                    placeholder="Segundos" [(ngModel)]="timer.time.seconds" (ngModelChange)="saveTimer('seconds', $event)" [counter]="true" maxlength="2"></ion-input>
+                </ion-col>
+              </ion-row>
+            </div>
+            <!-- FIN CRONOMETRO -->
           </div>
         </ion-card-content>
       </ion-card>
@@ -74,20 +98,18 @@
               <h1>Sitios</h1>
             </ion-text>
             <div class="content-input">
-              <input-component 
-              [id]="'sites'" 
-              [type]="'text'" 
-              [placeholder]="'Agrega más aquí.'" 
-              [action]="addItem" 
-              [parameter]="'sites'" 
-              [icon]="'add-circle'"
-              [count]="30">
-            </input-component>
+              <input-component [id]="'sites'" [type]="'text'" [placeholder]="'Agrega más aquí.'" [action]="addItem"
+                [parameter]="'sites'" [icon]="'add-circle'" [count]="30">
+              </input-component>
             </div>
           </div>
-          <div class="pt-2">
-
-            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="site.title" [parameters]="{listName:'sites', item: site}" *ngFor="let site of sites"></item-component>
+          <div class="pt-2 h-list">
+            <ion-label *ngIf="sites.length == 0">* No hay sitios todavia *</ion-label>
+            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="site.title"
+              [parameters]="{listName:'sites', item: site}" *ngFor="let site of sites"></item-component>
+          </div>
+          <div>
+            <ion-label> {{sites.length}} sitios </ion-label>
           </div>
         </ion-card-content>
       </ion-card>
@@ -99,20 +121,21 @@
               <h1>Situaciones</h1>
             </ion-text>
             <div class="content-input">
-              <input-component 
-              [id]="'situations'" 
-              [type]="'text'" 
-              [placeholder]="'Agrega más aquí.'" 
-              [action]="addItem" 
-              [parameter]="'situations'" 
-              [icon]="'add-circle'"
-              [count]="30">
-            </input-component>
+              <input-component [id]="'situations'" [type]="'text'" [placeholder]="'Agrega más aquí.'" [action]="addItem"
+                [parameter]="'situations'" [icon]="'add-circle'" [count]="30">
+              </input-component>
             </div>
           </div>
 
-          <div class="pt-2">
-            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="situation.title"  [parameters]="{listName:'situations', item: situation}" *ngFor="let situation of situations"></item-component>
+          <div class="pt-2 h-list">
+            <ion-label *ngIf="situations.length == 0">* No hay situaciones todavia *</ion-label>
+            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="situation.title"
+              [parameters]="{listName:'situations', item: situation}"
+              *ngFor="let situation of situations"></item-component>
+          </div>
+
+          <div>
+            <ion-label> {{situations.length}} situaciones </ion-label>
           </div>
 
         </ion-card-content>
@@ -125,25 +148,25 @@
               <h1>Temas</h1>
             </ion-text>
             <div class="content-input">
-              <input-component 
-              [id]="'temes'" 
-              [type]="'text'" 
-              [placeholder]="'Agrega más aquí.'" 
-              [action]="addItem" 
-              [parameter]="'temes'" 
-              [icon]="'add-circle'"
-              [count]="30">
-            </input-component>
+              <input-component [id]="'temes'" [type]="'text'" [placeholder]="'Agrega más aquí.'" [action]="addItem"
+                [parameter]="'temes'" [icon]="'add-circle'" [count]="30">
+              </input-component>
             </div>
           </div>
 
-          <div class="pt-2">
-            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="teme.title"   [parameters]="{listName:'temes', item: teme}" *ngFor="let teme of temes"></item-component>
+          <div class="pt-2 h-list">
+            <ion-label *ngIf="temes.length == 0">* No hay temas todavia *</ion-label>
+            <item-component [action]="removeItem" [actionTitle]="'Eliminar'" [label]="teme.title"
+              [parameters]="{listName:'temes', item: teme}" *ngFor="let teme of temes"></item-component>
+          </div>
+
+          <div>
+            <ion-label> {{temes.length}} temas </ion-label>
           </div>
 
         </ion-card-content>
       </ion-card>
-  
+
     </ion-col>
   </ion-row>
 </ion-content>
